@@ -1,6 +1,17 @@
 class Pokedex {
+	constructor(){
+		this.pokemonArray = pokemonArray;
+		console.log(pokemonArray);
+	}
+	listPokemon(){
+		for (var i = 0; i < pokemonArray.length; i++) {
+			$('.pokemon').append(`
+					<div class="child-pokemon" data-name="${this.innerText}" data-count="${i}"> ${pokemonArray[i]} </div>
+			`);
+		}
+	}
 	showDetails(name){
-		cachedFetch("http://pokeapi.co/api/v2/pokemon/" + name)
+		cachedFetch("https://pokeapi.co/api/v2/pokemon/" + name)
 		.then(r => r.json())
 		.then(res => {
 			console.log(res);
@@ -26,12 +37,14 @@ class Pokemon {
 		this.id = id;
 		this.height = height;
 	}
-}
+};
+
 $(function(){
-	$('.pokemon').on('click', function showDetails(){
-		const name = $(this).attr('data-name');
-		return name;
+	let pokedex = new Pokedex();
+	pokedex.listPokemon();
+	$(document).on('click', '.child-pokemon', function(){
+		let name = $(this).attr('data-name');
+		console.log(name);
+		pokedex.showDetails(name);
 	})
 });
-
-let bulbasaur = new Pokedex('bulbasaur');
