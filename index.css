@@ -1,0 +1,48 @@
+body {
+	display: inline-block;
+}
+.listpokemon {
+	box-sizing: border-box;
+	height: 400px;
+	width: 200px;
+	overflow: scroll;
+	border: solid black;
+	cursor: pointer;
+}
+.info_wrap {
+	height: 395px;
+	width: 700px;
+	position: relative;
+	bottom: 400px;
+	left: 200px;
+	border: solid black;
+}
+.info {
+
+}
+.favorite {
+	color: red;
+	text-decoration: underline;
+	cursor: pointer;
+	position: absolute;
+	display: inline;
+	left: 560px;
+	top: 350px;
+}
+.favorites_wrap {
+	box-sizing: border-box;
+	height: 400px;
+	width: 200px;
+	overflow: scroll;
+	border: solid black;
+	cursor: pointer;
+	position: relative;
+	bottom: 800px;
+	left: 900px;
+}
+.header {
+	font-size: 16px;
+	font-weight: bold;
+	text-decoration: underline;
+	text-align: center;
+}
