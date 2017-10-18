@@ -3,7 +3,6 @@ class Pokedex {
 		this.pokemonArray = pokemonArray;
 		this.currentPokemon = null;
 		this.favs = [];
-		console.log(pokemonArray);
 	}
 	listPokemon(){
 		for (var i = 0; i < pokemonArray.length; i++) {
@@ -16,9 +15,7 @@ class Pokedex {
 		cachedFetch("https://pokeapi.co/api/v2/pokemon/" + name)
 		.then(r => r.json())
 		.then(res => {
-			console.log(res);
 			this.currentPokemon = res.name;
-			console.log(this.currentPokemon);
 			$('.info').append(`
 				<div class="info">No. ${res.id}: ${res.name}</div>
 				<div class="info">Weight: ${res.weight}</div>
@@ -48,7 +45,7 @@ class Pokedex {
 			if (this.favs.includes(this.currentPokemon) === false){
 			$('.favorite').text(`Add ${this.currentPokemon} as a favorite!`);
 			} else {
-				$('.favorite').text(`Remove ${this.currentPokemon} from favorites`)
+				$('.favorite').text(`Remove ${this.currentPokemon} from favorites`);
 			}
 		});
 	}
@@ -57,18 +54,15 @@ class Pokedex {
 		$('.image').empty();
 	}
 	addFavorite(){
-		let index = $(this.favs.indexOf(this.currentPokemon));
 		if (this.favs.includes(this.currentPokemon) === false){
 			this.favs.unshift(this.currentPokemon);
 			$('.favorites').text(this.favs);
 			$('.favorite').text(`Remove ${this.currentPokemon} from favorites`);
 			this.displayFavorites();
-			console.log(this.favs);
 		} else if (this.favs.includes(this.currentPokemon) === true){
-			this.favs.splice($(this.favs.indexOf(this.currentPokemon)), 1);
+			this.favs.splice($.inArray(this.currentPokemon, this.favs), 1);
 			$('.favorite').text(`Add ${this.currentPokemon} as a favorite!`);
 			this.displayFavorites();
-			console.log(this.favs);
 		}
 	}
 	displayFavorites(){
@@ -76,28 +70,15 @@ class Pokedex {
 		for (var i = 0; i < this.favs.length; i++) {
 		html += "<li>" + this.favs[i] + "</li>";
 		}
-		$('.favorites').html(html)
+		$('.favorites').html(html);
 	}
 };
-
-// class Pokemon {
-// 	constructor(res){
-// 		this.name = name;
-// 		this.sprites = sprites;
-// 		this.weight = weight;
-// 		this.types = types;
-// 		this.id = id;
-// 		this.height = height;
-// 	}
-// };
-
 $(function(){
 	let pokedex = new Pokedex();
 	pokedex.listPokemon();
 	$(document).on('click', '.child-pokemon', function(){
 		pokedex.clearInfo();
 		let name = $(this).attr('data-name');
-		console.log(name);
 		pokedex.showDetails(name);
 	});
 	$('.favorite').on('click', function(){
